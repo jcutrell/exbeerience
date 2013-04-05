@@ -5691,6 +5691,10 @@ header .search-switch.on input {
   opacity: 1;
 }
 
+.w100 {
+  width: 100%;
+}
+
 .pull-right {
   float: right;
 }
