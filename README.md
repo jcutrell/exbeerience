@@ -1,4 +1,0 @@
-exbeerience
-===========
-
-GaTech school project
