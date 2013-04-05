@@ -45,17 +45,17 @@ function getBeerList(h,p,page,query){
 		var ctx = {
 			beers : data.data
 		}
-		console.log(data);
+		// console.log(data);
 		var source   = $("#beer-list").html();
 		var tpl = Handlebars.compile(source);
 		h += tpl(ctx);
 		var fragment = document.createDocumentFragment();
 		var d = document.createElement("div");
 		d.innerHTML=h;
-		if ($(d).find("li").length < 60 && data.currentPage < data.numberOfPages){
+		if ($(d).find("li").length < 100 && data.currentPage < data.numberOfPages){
 			$("#beerlist").append(h);
 			$(".loading-text").remove();
-			return getBeerList(h,p+1,page,query);
+			return getBeerList(h,p+1,page);
 		} else {
 			$("#beerlist").append(h);
 		}
@@ -103,7 +103,6 @@ $("input[name=search-input]").on("keyup", function(){
 	if (theRequest){
 		theRequest.abort();
 	}
-	$("#logo small").html("Search")
 	$("#beerlist").empty().html("<h3 class='loading-text'>Loading...</h3>");
 	tout = setTimeout(function(){
 		getBeerList("", 1, "search", $("input[name=search-input]").val());

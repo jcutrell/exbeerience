@@ -23,40 +23,76 @@
         <!--
             Uncomment for Font-Awesome-More, as well as the corporate and social extensions
             -->
-            <!--
-            <link href="http://whiteboard.is/fontawesome/css/font-awesome.min.css" rel="stylesheet">
-            <link href="http://whiteboard.is/fontawesome/css/font-awesome-corp.css" rel="stylesheet">
-            <link href="http://whiteboard.is/fontawesome/css/font-awesome-social.css" rel="stylesheet">
-        -->
-        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="http://css.cdn.tl/normalize.css">
+
+        <link href="http://whiteboard.is/fontawesome/css/font-awesome.min.css" rel="stylesheet">
+        <link href="http://whiteboard.is/fontawesome/css/font-awesome-corp.css" rel="stylesheet">
+        <link href="http://whiteboard.is/fontawesome/css/font-awesome-social.css" rel="stylesheet">
+
+        <link href='http://fonts.googleapis.com/css?family=Titillium+Web:400,200,700' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="docs/assets/css/bootstrap.css">
+        <link rel="stylesheet" href="docs/assets/css/bootstrap-responsive.css">
         <!-- <link rel="stylesheet" href="css/style.min.css"> -->
-        <script src="js/vendor/modernizr-2.6.2.min.js"></script>
+        <!-- <script src="js/vendor/modernizr-2.6.2.min.js"></script> -->
     </head>
     <body>
-        <!--[if lt IE 7]>
-            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
-        <![endif]-->
+        <div id="page">
+            <!--[if lt IE 7]>
+                <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+            <![endif]-->
 
-        <!-- Add your site or application content here -->
-        <h1>ExBeerience</h1>
-        <div class="beerlist"></div>
+            <!-- Add your site or application content here -->
+            <nav>
+                <h4>Browse</h4>
+                <a href="#recommended" class="current"><i class="icon-thumbs-up icon"></i> My Recommended</a>
+                <a href="#atoz"><i class="icon-list-ul icon"></i> A-to-Z</a>
+                <a href="#popular"><i class="icon-group icon"></i> Popular</a>
+                <a href="#seasonal"><i class="icon-leaf icon"></i> Seasonals</a>
+                <h4>Me</h4>
+            </nav>
+            <div id="contain">
+                <header class="clearfix">
+                    <a class="nav-switch" href="#nav"><i class="icon-reorder icon"></i></a><a class="search-switch" href="#search"><input name="search-input" type="search"><i class="icon-search icon"></i></a>
+                </header>
+                <div class="clearfix"></div>
+                <h1 id="logo">ExBeerience <small>Recommended</small></h1>
+                <div class="container-fluid">
+                    <div>
+                        <ul id="beerlist"><h3 class='loading-text'>Loading...</h3></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
         <script type="text/x-handlebars-template" id="beer-list">
-            <ul id="beer-list">
             {{#each beers}}
-                <li data-dbid="{{id}}">
-                    <h2>{{name}}</h2>
-                    {{#if labels}}
-                    <img src='{{labels.medium}}'>
-                    {{/if}}
+                {{#if labels}}
+                <li data-dbid="{{id}}" style="background-image:url({{labels.medium}});">
+                    <h4>{{name}}</h4>
                     <span>{{style.name}}</span><br>
                     {{#if abv}}
                         <span>ABV: {{abv}}</span>
                     {{else}}
+                        {{#ifBoth style.abvMax style.abvMin}}
+                        <span>ABV: {{style.abvMin}}-{{style.abvMax}}</span>
+                        {{else}}
                         <span>ABV: ??</span>
+                        {{/ifBoth}}
                     {{/if}}
                 </li>
+            {{/if}}
             {{/each}}
-            </ul>
+        </script>
+        <script type="text/x-handlebars-template" id="single-beer">
+            <div id="single-beer">
+                {{#if labels}}
+                    <h1>{{ name }}</h1>
+                    <h4>{{ style.name }}</h4>
+                    {{#if description}}
+                        <p>{{description}}</p>
+                    {{/if}}
+                    <img src='{{labels.large}}'>
+                {{/if}}
+            </div>
         </script>
 
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
