@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>wbBoiler - a Whiteboard Starting Point</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <!--
+            customize this based on the types found at https://developers.facebook.com/docs/concepts/opengraph/objects/
+        -->
+        <meta name="og:title" content="">
+        <meta name="og:description" content="">
+        <meta property="og:image" content="">
+        <meta property="og:type" content="website">
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:url" content="">
+        <!-- <meta name="twitter:site" content="@whiteboardis"> -->
+        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+        <!--
+            Uncomment for Font-Awesome-More, as well as the corporate and social extensions
+            -->
+            <!--
+            <link href="http://whiteboard.is/fontawesome/css/font-awesome.min.css" rel="stylesheet">
+            <link href="http://whiteboard.is/fontawesome/css/font-awesome-corp.css" rel="stylesheet">
+            <link href="http://whiteboard.is/fontawesome/css/font-awesome-social.css" rel="stylesheet">
+        -->
+        <link rel="stylesheet" href="css/style.css">
+        <!-- <link rel="stylesheet" href="css/style.min.css"> -->
+        <script src="js/vendor/modernizr-2.6.2.min.js"></script>
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- Add your site or application content here -->
+        <h1>ExBeerience</h1>
+        <div class="beerlist"></div>
+        <script type="text/x-handlebars-template" id="beer-list">
+            <ul id="beer-list">
+            {{#each beers}}
+                <li data-dbid="{{id}}">
+                    <h2>{{name}}</h2>
+                    {{#if labels}}
+                    <img src='{{labels.medium}}'>
+                    {{/if}}
+                    <span>{{style.name}}</span><br>
+                    {{#if abv}}
+                        <span>ABV: {{abv}}</span>
+                    {{else}}
+                        <span>ABV: ??</span>
+                    {{/if}}
+                </li>
+            {{/each}}
+            </ul>
+        </script>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+        
+        <!-- backbone
+            <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/backbone.js/0.9.10/backbone-min.js"></script>
+            <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.3/underscore-min.js"></script>
+        -->
+        <!-- <script src="js/plugins.js"></script> -->
+        <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.0.0-rc.3/handlebars.min.js"></script>
+        <script src="js/app.js"></script>
+
+        <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+        <script>
+            var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+    </body>
+</html>
