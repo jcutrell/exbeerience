@@ -50,8 +50,8 @@
                 <a href="#seasonal"><i class="icon-leaf icon"></i> Seasonals</a>
                 <h4>Me</h4>
                 <a href="#cellar"><i class="icon-beer icon"></i> My Cellar</a>
-                <a href="#cellar"><i class="icon-money icon"></i> My Purchase History</a>
-                <a href="#cellar"><i class="icon-comments icon"></i> My Reviews</a>
+                <a href="#purchases"><i class="icon-money icon"></i> My Purchase History</a>
+                <a href="#reviews"><i class="icon-comments icon"></i> My Reviews</a>
             </nav>
             <div id="contain">
                 <header class="clearfix">
@@ -74,6 +74,9 @@
                 {{#if labels}}
                 <a href="#/beer/{{id}}" data-dbid="{{id}}" class="single-link" style="background-image:url({{labels.medium}});">
                     <h4>{{name}}</h4>
+                    {{#if breweries.0.name }}
+                    <h6>{{ breweries.0.name }}</h6>
+                    {{/if}}
                     <span>{{style.name}}</span><br>
                     {{#if abv}}
                         <span>ABV: {{abv}}</span>
@@ -93,7 +96,24 @@
                 {{#if labels}}
                     <a class='back' href="#back">&lt; Back</a>
                     <h1>{{ name }}</h1>
-                    <h4>{{ style.name }}</h4>
+                    <div class='styleinfo'>
+                        <h4><a>{{ style.name }} <i class="icon-caret-up icon floatright"></i><i class="icon-caret-down icon floatright"></i></a></h4>
+                        <p>{{ style.description }}</p>
+                    </div>
+                    {{#if breweries.0.name }}
+                        <h6>{{ breweries.0.name }}</h6>
+                    {{/if}}
+                    {{#if ibu }}
+                        <p>Bitterness: <div class='bitterness-control'><div class='bitterness' style='width:{{bitterness ibu }}%'>{{bitternessText ibu}} ({{ibu}} ibu)</div></div></p>
+                    {{/if}}
+                    {{#if srm.hex }}
+                    <p style="line-height: 20px;">Color: <span style="display:inline-block; width:20px; height:16px; margin-top:4px; background:#{{srm.hex}}"></span></p>
+                    {{/if}}
+                    
+                    {{#if glass.name }}
+                    <p style="line-height: 20px;">Serve in: {{glass.name}}</p>
+                    {{/if}}
+
                     {{#if description}}
                         <p>{{description}}</p>
                     {{/if}}

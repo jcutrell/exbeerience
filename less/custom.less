@@ -24,6 +24,7 @@ html[xmlns] .clearfix {
 * html .clearfix {
 	height: 1%;
 }
+a:hover {text-decoration: none; cursor: pointer; }
 #beerlist {
 	list-style: none;
 	padding: 0;
@@ -126,4 +127,26 @@ header {
 }
 .w100 {
 	width: 100%;
+}
+.bitterness {
+	&-control {
+		background: #dedede;
+	}
+	color: #fff;
+	text-indent: 20px;
+	text-transform: uppercase;
+	height: 20px;
+	background-color: @blue;
+}
+.styleinfo {
+	background: #efefef;
+	.icon-caret-up { display: none; }
+	.icon-caret-down { display: block; }
+	a { display: block; padding: 8px; }
+	a.open .icon-caret-up { display: block; }
+	a.open .icon-caret-down { display: none; }
+	p {
+		display: none;
+		padding: 16px;
+	}
 }

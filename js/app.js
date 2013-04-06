@@ -6,15 +6,40 @@ Handlebars.registerHelper('ifBoth', function(v1, v2, options) {
   }
   return options.inverse(this);
 });
+
+Handlebars.registerHelper('bitterness', function(ibu){
+	return 100 * (ibu/110);
+});
+Handlebars.registerHelper('bitternessText', function(ibu){
+	var perc = 100 * (ibu/110);
+	if (ibu <= 10){
+		return "very low";
+	} else if (ibu > 10 && ibu <= 30){
+		return "low";
+	} else if (ibu > 30 && ibu <= 40){
+		return "medium";
+	} else if (ibu > 40 && ibu <= 60){
+		return "high medium";
+	} else if (ibu > 60 && ibu <= 80){
+		return "high";
+	} else {
+		return "very high";
+	}
+
+});
+
 $.ajaxSetup({
-	cache : false
+	cache : false,
+	data : {
+		"withBreweries" : "Y"
+	}
 });
 var theRequest;
 
 var listhtml = "";
 function getBeerList(h,p,page,query){
 	var data;
-	
+	$("#index").fadeIn(); $("#single").fadeOut();
 	if (!h) h = "";
 	if (!p) p = 1;
 	if (!page) page = "recommended";
@@ -42,6 +67,7 @@ function getBeerList(h,p,page,query){
 	}
 
 	theRequest = $.getJSON(BASE, data, function(data){
+		console.log(data);
 		var ctx = {
 			beers : data.data
 		}
@@ -114,7 +140,9 @@ $("body").on("click", ".single-link", function(e){
 	var id = hash.split("/")[hash.split("/").length-1];
 	var data = { method : "beer/"+id }
 	var h = "";
-	$.getJSON(BASE, data, function(data){
+	theRequest.abort();
+	theRequest = $.getJSON(BASE, data, function(data){
+		console.log(data);
 		var ctx = data.data;
 		var source = $("#single-beer").html();
 		var tpl = Handlebars.compile(source);
@@ -127,3 +155,8 @@ $("body").on("click", ".back", function(e){
 	$("#single").fadeOut(function(){$("#single").empty();});
 	$("#index").fadeIn();
 });
+$("body").on("click", ".styleinfo a", function(e){
+	e.preventDefault();
+	$(e.target).toggleClass("open");
+	$(e.target).parent().next("p").slideToggle();
+})
