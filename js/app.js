@@ -45,8 +45,7 @@ function getBeerList(h,p,page,query){
 		var ctx = {
 			beers : data.data
 		}
-		console.log(data);
-		var source   = $("#beer-list").html();
+		var source = $("#beer-list").html();
 		var tpl = Handlebars.compile(source);
 		h += tpl(ctx);
 		var fragment = document.createDocumentFragment();
@@ -108,4 +107,23 @@ $("input[name=search-input]").on("keyup", function(){
 	tout = setTimeout(function(){
 		getBeerList("", 1, "search", $("input[name=search-input]").val());
 	}, 300);
+});
+$("body").on("click", ".single-link", function(e){
+	$("#index").fadeOut();
+	var hash = $(this).attr("href");
+	var id = hash.split("/")[hash.split("/").length-1];
+	var data = { method : "beer/"+id }
+	var h = "";
+	$.getJSON(BASE, data, function(data){
+		var ctx = data.data;
+		var source = $("#single-beer").html();
+		var tpl = Handlebars.compile(source);
+		h += tpl(ctx);
+		$("#single").html(h).fadeIn();
+	});
+});
+$("body").on("click", ".back", function(e){
+	e.preventDefault();
+	$("#single").fadeOut(function(){$("#single").empty();});
+	$("#index").fadeIn();
 });

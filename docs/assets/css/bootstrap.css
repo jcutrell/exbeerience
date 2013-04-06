@@ -5586,7 +5586,8 @@ html[xmlns] .clearfix {
   list-style: none;
 }
 
-#beerlist li {
+#beerlist a {
+  display: block;
   min-height: 160px;
   padding: 10px;
   padding-left: 240px;

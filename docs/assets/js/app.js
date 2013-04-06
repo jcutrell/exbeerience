@@ -34,9 +34,9 @@ function getBeerList(h,p,page,query){
 		// grab those spring beers, dog
 		data = {method : "beers", "availableId": 5, "order" : "abv", "sort" :"DESC", "p":p};
 	} else if (page=="cellar"){
-		data = {method : "beers", "ids": "availableId", "sort" :"ASC", "p":p};
+		data = {method : "beers", "ids": "RZfghP,mpfjHg,NXRM7y,Qx1hbt,R0MvCF,iLlMCb,FYS1Qj,y3lFdg,f9WbNU,x6bRxw,", "sort" :"ASC", "p":p};
 	} else if (page=="purchases"){
-
+		data = {method : "beers", "ids": "Qx1hbt,R0MvCF,iLlMCb,FYS1Qj,y3lFdg,CfJ0cK,AXqmST,NoNhan,f9WbNU,x6bRxw,", "sort" :"ASC", "p":p};
 	} else if (page=="search"){
 		data = {method : "search", "q": query, "p":p};
 	}
@@ -45,8 +45,7 @@ function getBeerList(h,p,page,query){
 		var ctx = {
 			beers : data.data
 		}
-		console.log(data);
-		var source   = $("#beer-list").html();
+		var source = $("#beer-list").html();
 		var tpl = Handlebars.compile(source);
 		h += tpl(ctx);
 		var fragment = document.createDocumentFragment();

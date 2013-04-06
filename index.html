@@ -59,17 +59,20 @@
                 </header>
                 <div class="clearfix"></div>
                 <h1 id="logo">ExBeerience <small>Recommended</small></h1>
-                <div class="w100">
+                <div id="index" class="w100">
                     <div>
-                        <ul id="beerlist"><h3 class='loading-text'>Loading...</h3></ul>
+                        <div id="beerlist"><h3 class='loading-text'>Loading...</h3></div>
                     </div>
+                </div>
+                <div id="single" class="w100">
+                    <div class="beer-details"></div>
                 </div>
             </div>
         </div>
         <script type="text/x-handlebars-template" id="beer-list">
             {{#each beers}}
                 {{#if labels}}
-                <li data-dbid="{{id}}" style="background-image:url({{labels.medium}});">
+                <a href="#/beer/{{id}}" data-dbid="{{id}}" class="single-link" style="background-image:url({{labels.medium}});">
                     <h4>{{name}}</h4>
                     <span>{{style.name}}</span><br>
                     {{#if abv}}
@@ -81,13 +84,14 @@
                         <span>ABV: ??</span>
                         {{/ifBoth}}
                     {{/if}}
-                </li>
+                </a>
             {{/if}}
             {{/each}}
         </script>
         <script type="text/x-handlebars-template" id="single-beer">
             <div id="single-beer">
                 {{#if labels}}
+                    <a class='back' href="#back">&lt; Back</a>
                     <h1>{{ name }}</h1>
                     <h4>{{ style.name }}</h4>
                     {{#if description}}
