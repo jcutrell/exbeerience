@@ -148,6 +148,27 @@ $("body").on("click", ".single-link", function(e){
 		var tpl = Handlebars.compile(source);
 		h += tpl(ctx);
 		$("#single").html(h).fadeIn();
+		var rating = Math.round(Math.random() * 5);
+		var i = 0;
+		var h = "";
+		for (i = i; i < rating; i++){
+			h += "<i class='icon-star'></i>";
+		}
+		for (i = i; i < 5; i++){
+			h += "<i class='icon-star-empty'></i>";
+		}
+		$(".review p").first().prepend("<div>"+h+"</div>");
+
+			rating = Math.round(Math.random() * 5);
+			i = 0;
+			h = "";
+		for (i = i; i < rating; i++){
+			h += "<i class='icon-star'></i>";
+		}
+		for (i = i; i < 5; i++){
+			h += "<i class='icon-star-empty'></i>";
+		}
+		$(".review p").last().prepend("<div>"+h+"</div>");
 	});
 });
 $("body").on("click", ".back", function(e){
@@ -159,4 +180,18 @@ $("body").on("click", ".styleinfo a", function(e){
 	e.preventDefault();
 	$(e.target).toggleClass("open");
 	$(e.target).parent().next("p").slideToggle();
-})
+});
+$("body").on("submit", "#add-a-review", function(e){
+	e.preventDefault();
+	var username = $("input[name='username']").val();
+	var comments = $("textarea[name='comments']").val();
+	var comment = "<div class='review'>"
+                            +"<div class='review-text'>"
+                                +"<h5>"+username+"</h5>"
+                                +"<img src='http://placekitten.com/g/120/120' class='floatleft avatar'>"
+                                +"<p>"+comments+"</p>"
+                            +"</div>"
+                        +"</div>"
+                        +"<hr>";
+    $(".reviews").append(comment);
+});

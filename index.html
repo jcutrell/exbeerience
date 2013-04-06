@@ -118,6 +118,47 @@
                         <p>{{description}}</p>
                     {{/if}}
                     <img src='{{labels.large}}'>
+                    <div class='reviews clearfix'>
+                        <h4>Reviews</h4>
+                        <div class='review'>
+                            <div class='review-text'>
+                            <h5>Kitty Liquor</h5>
+                                <img src="http://placekitten.com/120/120" class="floatleft avatar">
+                                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium.</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class='review'>
+                            <div class='review-text'>
+                                <h5>Drunken Kitty</h5>
+                                <img src="http://placekitten.com/g/120/120" class="floatleft avatar">
+                                <p>Fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.</p>
+                            </div>
+                        </div>
+                        <hr>
+                        </div>
+                        <div>
+                        <h4>Write a Review</h4>
+                        <form id='add-a-review' class='form-horizontal'>
+                            <div class='control-group'>
+                            <label class='control-label' for='username'>Username</label>
+                            <div class='controls'>
+                                <input name='username' type='text'>
+                            </div>
+                            </div>
+                            <div class='control-group'>
+                                <label class='control-label' for='comments'>Comments</label>
+                                <div class='controls'>
+                                    <textarea name='comments'></textarea>
+                                </div>
+                            </div>
+                            <div class='control-group'>
+                                <div class='controls'>
+                                    <button type="submit" class="btn">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 {{/if}}
             </div>
         </script>

@@ -5559,6 +5559,10 @@ body {
   float: right;
 }
 
+.floatleft {
+  float: left;
+}
+
 .clearfix:after {
   display: block;
   height: 0;
@@ -5741,6 +5745,10 @@ header .search-switch.on input {
 .styleinfo p {
   display: none;
   padding: 16px;
+}
+
+.avatar {
+  margin: 0 20px 20px 0;
 }
 
 .pull-right {
