@@ -134,19 +134,27 @@ $("input[name=search-input]").on("keyup", function(){
 		getBeerList("", 1, "search", $("input[name=search-input]").val());
 	}, 300);
 });
-$("body").on("click", ".single-link", function(e){
+
+function goToSingle(ev){
+	if (!ev){
+		var hash = document.location.hash;
+	} else {
+		if (!$(ev.target).is("a")){
+			var t = $(ev.target).parents("a");
+		} else {
+			var t = $(ev.target);
+		}
+		var hash = $(t).attr("href");
+	}
 	$("#index").fadeOut();
-	var hash = $(this).attr("href");
 	var id = hash.split("/")[hash.split("/").length-1];
 	var data = { method : "beer/"+id }
-	var h = "";
 	theRequest.abort();
 	theRequest = $.getJSON(BASE, data, function(data){
-		console.log(data);
 		var ctx = data.data;
 		var source = $("#single-beer").html();
 		var tpl = Handlebars.compile(source);
-		h += tpl(ctx);
+		var h = tpl(ctx);
 		$("#single").html(h).fadeIn();
 		var rating = Math.round(Math.random() * 5);
 		var i = 0;
@@ -170,6 +178,13 @@ $("body").on("click", ".single-link", function(e){
 		}
 		$(".review p").last().prepend("<div>"+h+"</div>");
 	});
+}
+
+$("body").on("click", ".single-link", goToSingle);
+$(document).ready(function(){
+	if (document.location.hash.split("/")[1] == "beer"){
+		goToSingle();
+	}
 });
 $("body").on("click", ".back", function(e){
 	e.preventDefault();
@@ -185,7 +200,7 @@ $("body").on("submit", "#add-a-review", function(e){
 	e.preventDefault();
 	var username = $("input[name='username']").val();
 	var comments = $("textarea[name='comments']").val();
-	var comment = "<div class='review'>"
+	var comment = "<div class='review clearfix'>"
                             +"<div class='review-text'>"
                                 +"<h5>"+username+"</h5>"
                                 +"<img src='http://placekitten.com/g/120/120' class='floatleft avatar'>"
