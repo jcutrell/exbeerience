@@ -1,4 +1,4 @@
-var BASE = "call.php";
+var BASE = "http://ebh.herokuapp.com";
 
 Handlebars.registerHelper('ifBoth', function(v1, v2, options) {
   if(v1 && v2) {
@@ -30,6 +30,7 @@ Handlebars.registerHelper('bitternessText', function(ibu){
 
 $.ajaxSetup({
 	cache : false,
+	dataType : "jsonp",
 	data : {
 		"withBreweries" : "Y"
 	}
