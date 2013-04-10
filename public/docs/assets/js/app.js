@@ -72,6 +72,14 @@ function getBeerList(h,p,page,query){
 			data = {method : "beers", "ids": "Qx1hbt,R0MvCF,iLlMCb,FYS1Qj,y3lFdg,CfJ0cK,AXqmST,NoNhan,f9WbNU,x6bRxw,", "sort" :"ASC", "p":p};
 		} else if (page=="search"){
 			data = {method : "search", "q": query, "p":p};
+		} else if (page=="profile"){
+			$("#single, #index").fadeOut();
+			var ctx = data;
+			var source = $("#taste-profile").html();
+			var tpl = Handlebars.compile(source);
+			var h = tpl(ctx);
+			$("#taste-profile-details").html(h).parent().fadeIn();
+			return;
 		}
 
 		theRequest = $.getJSON(BASE, data, function(data){

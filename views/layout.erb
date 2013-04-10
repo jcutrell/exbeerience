@@ -51,6 +51,7 @@
                     <a href="#popular"><i class="icon-group icon"></i> Popular</a>
                     <a href="#seasonal"><i class="icon-leaf icon"></i> Seasonals</a>
                     <h4>Me</h4>
+                    <a href="#profile"><i class="icon-user icon"></i> My Profile</a>
                     <a href="#cellar"><i class="icon-beer icon"></i> My Cellar</a>
                     <a href="#purchases"><i class="icon-money icon"></i> My Purchase History</a>
                     <a href="#reviews"><i class="icon-comments icon"></i> My Reviews</a>
@@ -74,9 +75,20 @@
                     <div id="single" class="w100">
                         <div class="beer-details"></div>
                     </div>
+                    <div id="taste-profile-container" class="w100">
+                        <div id="taste-profile-details"></div>
+                    </div>
                 </div>
             </div>
         </div>
+        <script type="text/x-handlebars-template" id="taste-profile">
+            <div class='bar' style="width:{{taste_bitter}}%">bitterness</div>
+            <div class='bar' style="width:{{taste_dark}}%">darkness</div>
+            <div class='bar' style="width:{{taste_strong}}%">strength</div>
+            <div class='bar' style="width:{{taste_spicy}}%">spicyness</div>
+            <div class='bar' style="width:{{taste_fruity}}%">fruityness</div>
+            <canvas id='profile-spider' width="500" height="500"></canvas>
+        </script>
         <script type="text/x-handlebars-template" id="beer-list">
             {{#each beers}}
                 {{#if labels}}
@@ -113,15 +125,19 @@
                         <h6>{{ breweries.0.name }}</h6>
                     {{/if}}
                     {{#if ibu }}
-                        <p>Bitterness: <div class='bitterness-control'><div class='bitterness' style='width:{{bitterness ibu }}%'>{{bitternessText ibu}} ({{ibu}} ibu)</div></div></p>
+                        <p><strong>Bitterness:</strong> <div class='bitterness-control'><div class='bitterness' style='width:{{bitterness ibu }}%'>{{bitternessText ibu}} ({{ibu}} ibu)</div></div></p>
                     {{/if}}
                     {{#if srm.hex }}
-                    <p style="line-height: 20px;">Color: <span style="display:inline-block; width:20px; height:16px; margin-top:4px; background:#{{srm.hex}}"></span></p>
+                    <p style="line-height: 20px;"><strong>Color:</strong> <span style="display:inline-block; width:20px; height:16px; margin-top:4px; background:#{{srm.hex}}"></span></p>
                     {{/if}}
                     
                     {{#if glass.name }}
-                    <p style="line-height: 20px;">Serve in: {{glass.name}}</p>
+                    <p style="line-height: 20px;"><strong>Serve in:</strong> {{glass.name}}</p>
                     {{/if}}
+                    <div class='legend'>
+                    <p>You: <span style='display:inline-block; background:rgba(255,179,57,0.6); width: 30px; height: 10px;'></span> &nbsp;&nbsp; The Beer: <span style='display:inline-block; background:rgba(16,125,255,0.5); width: 30px; height: 10px;'></span></p>
+                    </div>
+                    <canvas id='beer-profile-spider' width="500" height="500"></canvas>
 
                     {{#if description}}
                         <p>{{description}}</p>

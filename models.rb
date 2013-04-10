@@ -23,11 +23,11 @@ class User
   property :created_at, DateTime #signup date
   property :email, String # User's email
   property :gravatar, String, :length => 120 # User's gravatar based on email
-  property :taste_bitter, Float
-  property :taste_dark, Float
-  property :taste_strong, Float
-  property :taste_spicy, Float
-  property :taste_fruity, Float
+  property :taste_bitter, Integer
+  property :taste_dark, Integer
+  property :taste_strong, Integer
+  property :taste_spicy, Integer
+  property :taste_fruity, Integer
 
   validates_uniqueness_of :email, :message => "There's already a user with that email address."
   validates_uniqueness_of :username, :message => "That username has already been taken."

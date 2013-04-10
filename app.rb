@@ -61,13 +61,15 @@ post "/user/create" do
 	user.username = params["username"].downcase
 	user.email = params["email"].downcase
 	user.created_at = Time.now
+
+	# personal tastes
 	user.taste_bitter = rand(100)
 	user.taste_dark = rand(100)
 	user.taste_strong = rand(100)
 	user.taste_spicy = rand(100)
 	user.taste_fruity = rand(100)
+	
 	if user.save
-		puts "saved!"
 		puts user
  		session[:username] = user.username
  		redirect '/'
