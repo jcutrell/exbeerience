@@ -226,7 +226,7 @@ $("body").on("click", ".add-beer", function(e){
 		var json = $.parseJSON(data);
 		console.log(json);
 		if (json.message == "Successfully added drink."){
-			button.text("Added to cellar!").removeClass("add-beer");
+			button.html("<i class='icon-beer icon'></i> Added to cellar!").removeClass("add-beer");
 		}
 	});
 })
