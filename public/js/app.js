@@ -1,5 +1,5 @@
 
-var clickevt = (Modernizr.touch) ? "touch" : "click";
+var clickevt = (Modernizr.touch) ? "touchstart" : "click";
 var BASE = "http://ebh.herokuapp.com";
 
 Handlebars.registerHelper('ifBoth', function(v1, v2, options) {
@@ -118,8 +118,7 @@ $("nav").on(clickevt, "a", function(e){
 	}
 });
 $(".nav-switch").on(clickevt, function(e){
-	console.log(e.target);
-	console.log(this);
+	
 	if ($(this).hasClass("open")){
 		$(this).removeClass("open");
 		$("#contain").removeClass("nav-open");
