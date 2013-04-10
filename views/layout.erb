@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>wbBoiler - a Whiteboard Starting Point</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <!--
+            customize this based on the types found at https://developers.facebook.com/docs/concepts/opengraph/objects/
+        -->
+        <meta name="og:title" content="">
+        <meta name="og:description" content="">
+        <meta property="og:image" content="">
+        <meta property="og:type" content="website">
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:url" content="">
+        <!-- <meta name="twitter:site" content="@whiteboardis"> -->
+        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+        <!--
+            Uncomment for Font-Awesome-More, as well as the corporate and social extensions
+            -->
+        <link rel="stylesheet" href="http://css.cdn.tl/normalize.css">
+
+        <link href="http://whiteboard.is/fontawesome/css/font-awesome.min.css" rel="stylesheet">
+        <link href="http://whiteboard.is/fontawesome/css/font-awesome-corp.css" rel="stylesheet">
+        <link href="http://whiteboard.is/fontawesome/css/font-awesome-social.css" rel="stylesheet">
+
+        <link href='http://fonts.googleapis.com/css?family=Titillium+Web:400,200,700' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="docs/assets/css/bootstrap.css">
+        <link rel="stylesheet" href="docs/assets/css/bootstrap-responsive.css">
+        <!-- <link rel="stylesheet" href="css/style.min.css"> -->
+        <!-- <script src="js/vendor/modernizr-2.6.2.min.js"></script> -->
+    </head>
+    <body>
+        <% if logged_in? %>
+        <div id="page">
+            <!--[if lt IE 7]>
+                <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+            <![endif]-->
+
+            <!-- Add your site or application content here -->
+            <nav>
+                <h4>Browse</h4>
+                <a href="#recommended" class="current"><i class="icon-thumbs-up icon"></i> My Recommended</a>
+                <a href="#atoz"><i class="icon-list-ul icon"></i> A-to-Z</a>
+                <a href="#popular"><i class="icon-group icon"></i> Popular</a>
+                <a href="#seasonal"><i class="icon-leaf icon"></i> Seasonals</a>
+                <h4>Me</h4>
+                <a href="#cellar"><i class="icon-beer icon"></i> My Cellar</a>
+                <a href="#purchases"><i class="icon-money icon"></i> My Purchase History</a>
+                <a href="#reviews"><i class="icon-comments icon"></i> My Reviews</a>
+                <a href="/logout" class="logout"><i class="icon-signout icon"></i> Log Out</a>
+            </nav>
+            <div id="contain">
+                <header class="clearfix">
+                    <a class="nav-switch" href="#nav"><i class="icon-indent-right icon"></i></a><a class="search-switch" href="#search"><input name="search-input" type="search"><i class="icon-search icon"></i></a>
+                </header>
+                <div class="clearfix"></div>
+                <small>Welcome, <%= current_user.username %></small>
+                <h1 id="logo">ExBeerience <small>Recommended</small></h1>
+                <div id="index" class="w100">
+                    <div>
+                        <div id="beerlist"><h3 class='loading-text'>Loading...</h3></div>
+                    </div>
+                </div>
+                <div id="single" class="w100">
+                    <div class="beer-details"></div>
+                </div>
+            </div>
+        </div>
+        <script type="text/x-handlebars-template" id="beer-list">
+            {{#each beers}}
+                {{#if labels}}
+                <a href="#/beer/{{id}}" data-dbid="{{id}}" class="single-link" style="background-image:url({{labels.medium}});">
+                    <h4>{{name}}</h4>
+                    {{#if breweries.0.name }}
+                    <h6>{{ breweries.0.name }}</h6>
+                    {{/if}}
+                    <span>{{style.name}}</span><br>
+                    {{#if abv}}
+                        <span>ABV: {{abv}}</span>
+                    {{else}}
+                        {{#ifBoth style.abvMax style.abvMin}}
+                        <span>ABV: {{style.abvMin}}-{{style.abvMax}}</span>
+                        {{else}}
+                        <span>ABV: ??</span>
+                        {{/ifBoth}}
+                    {{/if}}
+                </a>
+            {{/if}}
+            {{/each}}
+        </script>
+        <script type="text/x-handlebars-template" id="single-beer">
+            <div id="singlebeer">
+                {{#if labels}}
+                    <a class='back' href="#back">&lt; Back</a>
+                    <h1>{{ name }}</h1>
+                    <div class='styleinfo'>
+                        <h4><a>{{ style.name }} <i class="icon-caret-up icon floatright"></i><i class="icon-caret-down icon floatright"></i></a></h4>
+                        <p>{{ style.description }}</p>
+                    </div>
+                    <h5><a href="#" class='add-beer' data-api_id="{{id}}">Add to my cellar</a></h5>
+                    {{#if breweries.0.name }}
+                        <h6>{{ breweries.0.name }}</h6>
+                    {{/if}}
+                    {{#if ibu }}
+                        <p>Bitterness: <div class='bitterness-control'><div class='bitterness' style='width:{{bitterness ibu }}%'>{{bitternessText ibu}} ({{ibu}} ibu)</div></div></p>
+                    {{/if}}
+                    {{#if srm.hex }}
+                    <p style="line-height: 20px;">Color: <span style="display:inline-block; width:20px; height:16px; margin-top:4px; background:#{{srm.hex}}"></span></p>
+                    {{/if}}
+                    
+                    {{#if glass.name }}
+                    <p style="line-height: 20px;">Serve in: {{glass.name}}</p>
+                    {{/if}}
+
+                    {{#if description}}
+                        <p>{{description}}</p>
+                    {{/if}}
+                    <img src='{{labels.large}}'>
+                    <div class='reviews clearfix'>
+                        <h4>Reviews</h4>
+                        <div class='review'>
+                            <div class='review-text'>
+                            <h5>Kitty Liquor</h5>
+                                <img src="http://placekitten.com/120/120" class="floatleft avatar">
+                                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium.</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class='review'>
+                            <div class='review-text'>
+                                <h5>Drunken Kitty</h5>
+                                <img src="http://placekitten.com/g/120/120" class="floatleft avatar">
+                                <p>Fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.</p>
+                            </div>
+                        </div>
+                        <hr>
+                        </div>
+                        <div>
+                        <h4>Write a Review</h4>
+                        <form id='add-a-review' class='form-horizontal'>
+                            <div class='control-group'>
+                            <label class='control-label' for='username'>Username</label>
+                            <div class='controls'>
+                                <input name='username' type='text'>
+                            </div>
+                            </div>
+                            <div class='control-group'>
+                                <label class='control-label' for='comments'>Comments</label>
+                                <div class='controls'>
+                                    <textarea name='comments'></textarea>
+                                </div>
+                            </div>
+                            <div class='control-group'>
+                                <div class='controls'>
+                                    <button type="submit" class="btn">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                {{/if}}
+            </div>
+        </script>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+        
+        <!-- backbone
+            <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/backbone.js/0.9.10/backbone-min.js"></script>
+            <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.3/underscore-min.js"></script>
+        -->
+        <!-- <script src="js/plugins.js"></script> -->
+        <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.0.0-rc.3/handlebars.min.js"></script>
+        <script src="js/app.js"></script>
+
+        <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+        <script>
+            var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+        <% else %>
+        <h4>Sign Up</h4>
+        <form action="/user/create" method="post">
+            <label for="username">Username:</label> <input type="text" name="username">
+            <label for="email">Email:</label> <input type="email" name="email">
+            <label for="password">Password:</label> <input type="password" name="password">
+            <input type="submit" class="btn">
+        </form>
+        <hr><p>OR</p>
+        <h4>Log In</h4>
+        <form action="/user/login" method="post">
+            <label for="username">Username:</label> <input type="text" name="username">
+            <label for="password">Password:</label> <input type="password" name="password">
+            <input type="submit" class="btn">
+        </form>
+        <% end %>
+    </body>
+</html>
