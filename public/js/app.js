@@ -118,7 +118,7 @@ $("nav").on(clickevt, "a", function(e){
 	}
 });
 $(".nav-switch").on(clickevt, function(e){
-	
+
 	if ($(this).hasClass("open")){
 		$(this).removeClass("open");
 		$("#contain").removeClass("nav-open");
@@ -231,3 +231,7 @@ $("body").on(clickevt, ".add-beer", function(e){
 		}
 	});
 })
+$("body").on("change", "input[type=file]", function(e){
+	document.location.hash = "#/beer/5nEJRc";
+	goToSingle();
+});
