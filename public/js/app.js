@@ -221,7 +221,12 @@ $("body").on("submit", "#add-a-review", function(e){
 
 $("body").on("click", ".add-beer", function(e){
 	var id = $(this).data("api_id");
+	var button = $(this);
 	$.post("/cellar/add", {"api_id" : id}, function(data){
-		console.log(data);
-	})
+		var json = $.parseJSON(data);
+		console.log(json)
+		if (json.message == "Successfully added drink."){
+			button.text("Added to cellar!").removeClass("add-beer");
+		}
+	});
 })
