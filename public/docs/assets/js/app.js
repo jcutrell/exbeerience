@@ -1,3 +1,5 @@
+
+var clickevt = (Modernizr.touch) ? "touch" : "click";
 var BASE = "http://ebh.herokuapp.com";
 
 Handlebars.registerHelper('ifBoth', function(v1, v2, options) {
@@ -95,7 +97,7 @@ function getBeerList(h,p,page,query){
 getBeerList(listhtml, 1, "recommended");
 
 
-$("nav").on("click", "a", function(e){
+$("nav").on(clickevt, "a", function(e){
 	if (!$(this).is(".logout")){
 		e.preventDefault();
 	} else { return true; }
@@ -115,7 +117,7 @@ $("nav").on("click", "a", function(e){
 		// do nothing.
 	}
 });
-$(".nav-switch").on("click", function(e){
+$(".nav-switch").on(clickevt, function(e){
 	console.log(e.target);
 	console.log(this);
 	if ($(this).hasClass("open")){
@@ -126,7 +128,7 @@ $(".nav-switch").on("click", function(e){
 		$("#contain").addClass("nav-open");
 	}
 })
-$(".search-switch i").on("click", function(e){
+$(".search-switch i").on(clickevt, function(e){
 	$(e.target).parent().toggleClass("on");
 });
 
@@ -188,18 +190,18 @@ function goToSingle(ev){
 	});
 }
 
-$("body").on("click", ".single-link", goToSingle);
+$("body").on(clickevt, ".single-link", goToSingle);
 $(document).ready(function(){
 	if (document.location.hash.split("/")[1] == "beer"){
 		goToSingle();
 	}
 });
-$("body").on("click", ".back", function(e){
+$("body").on(clickevt, ".back", function(e){
 	e.preventDefault();
 	$("#single").fadeOut(function(){$("#single").empty();});
 	$("#index").fadeIn();
 });
-$("body").on("click", ".styleinfo a", function(e){
+$("body").on(clickevt, ".styleinfo a", function(e){
 	e.preventDefault();
 	$(e.target).toggleClass("open");
 	$(e.target).parent().next("p").slideToggle();
@@ -219,7 +221,7 @@ $("body").on("submit", "#add-a-review", function(e){
     $(".reviews").append(comment);
 });
 
-$("body").on("click", ".add-beer", function(e){
+$("body").on(clickevt, ".add-beer", function(e){
 	var id = $(this).data("api_id");
 	var button = $(this);
 	$.post("/cellar/add", {"api_id" : id}, function(data){

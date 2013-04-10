@@ -5690,15 +5690,16 @@ header .nav-switch {
 }
 
 header .search-switch {
+  position: relative;
+  z-index: 999;
   float: right;
   margin: 0;
 }
 
 header .search-switch input {
-  position: relative;
-  z-index: 999;
   width: 0;
   margin: 10px;
+  margin-left: 0;
   opacity: 0;
   -webkit-transition: all 0.2s;
      -moz-transition: all 0.2s;
@@ -5708,7 +5709,8 @@ header .search-switch input {
 }
 
 header .search-switch.on input {
-  width: 200px;
+  width: 180px;
+  max-width: 80%;
   opacity: 1;
 }
 
@@ -5783,6 +5785,8 @@ header .search-switch.on input {
 }
 
 input[type=file] {
+  width: 30px;
+  height: 60px;
   opacity: 0;
 }
 
