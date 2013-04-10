@@ -5686,6 +5686,8 @@ header .search-switch {
 }
 
 header .search-switch input {
+  position: relative;
+  z-index: 999;
   width: 0;
   margin: 10px;
   opacity: 0;
@@ -5749,6 +5751,30 @@ header .search-switch.on input {
 
 .avatar {
   margin: 0 20px 20px 0;
+}
+
+.camera {
+  position: absolute;
+  top: 30px;
+  right: 80px;
+}
+
+.camera:after {
+  position: absolute;
+  top: 15px;
+  right: 0;
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  font-family: FontAwesome;
+  font-size: 20px;
+  pointer-events: none;
+  content: "\f030";
+  opacity: 1;
+}
+
+input[type=file] {
+  opacity: 0;
 }
 
 .pull-right {

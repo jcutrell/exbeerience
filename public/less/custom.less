@@ -114,6 +114,8 @@ header {
 			margin: 10px;
 			width: 0;
 			opacity: 0;
+			z-index: 999;
+			position: relative;
 			-webkit-transition: all 0.2s;
 			-moz-transition: all 0.2s;
 			-ms-transition: all 0.2s;
@@ -153,4 +155,25 @@ header {
 }
 .avatar {
 	margin: 0 20px 20px 0;
+}
+.camera {
+	position: absolute;
+	top: 30px;
+	right: 80px;
+	&:after {
+		position: absolute;
+		top: 15px;
+		pointer-events: none;
+		right: 0;
+		opacity: 1;
+		display: inline-block;
+		width: 30px;
+		height: 30px;
+		font-family: FontAwesome;
+		content: "\f030";
+		font-size: 20px;
+	}
+}
+input[type=file]{
+	opacity:0;
 }

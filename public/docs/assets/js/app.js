@@ -30,7 +30,6 @@ Handlebars.registerHelper('bitternessText', function(ibu){
 
 $.ajaxSetup({
 	cache : false,
-	dataType : "jsonp",
 	data : {
 		"withBreweries" : "Y"
 	}
@@ -46,52 +45,60 @@ function getBeerList(h,p,page,query){
 	if (!page) page = "recommended";
 	if (!query) query = "";
 
-	if (page=="recommended"){
-		data = {method : "beers", "order" : "status", "abv":"7,12", "ibu":"20,50", "p":p};
-	// } else if (page=="recommended"){
-		// data = {method : "beers", "order": "availableId", "sort" :"DESC", "p":p};
-	} else if (page=="atoz"){
-		data = {method : "beers", "order": "name", "sort" :"ASC", "p":p};
-	} else if (page=="popular"){
-		// These are the most recently updated... So they must be popular, right?
-		var ts = Math.round((new Date()).getTime() / 1000) - (86400*4);
-		data = {method : "beers", "since": ts, "sort" :"ASC", "p":p};
-	} else if (page=="seasonal"){
-		// grab those spring beers, dog
-		data = {method : "beers", "availableId": 5, "order" : "abv", "sort" :"DESC", "p":p};
-	} else if (page=="cellar"){
-		data = {method : "beers", "ids": "RZfghP,mpfjHg,NXRM7y,Qx1hbt,R0MvCF,iLlMCb,FYS1Qj,y3lFdg,f9WbNU,x6bRxw,", "sort" :"ASC", "p":p};
-	} else if (page=="purchases"){
-		data = {method : "beers", "ids": "Qx1hbt,R0MvCF,iLlMCb,FYS1Qj,y3lFdg,CfJ0cK,AXqmST,NoNhan,f9WbNU,x6bRxw,", "sort" :"ASC", "p":p};
-	} else if (page=="search"){
-		data = {method : "search", "q": query, "p":p};
-	}
-
-	theRequest = $.getJSON(BASE, data, function(data){
+	$.getJSON("/me", function(data){
 		console.log(data);
-		var ctx = {
-			beers : data.data
+		if (page=="recommended"){
+			data = {method : "beers", "order" : "status", "abv":"7,12", "ibu":"20,50", "p":p};
+		// } else if (page=="recommended"){
+			// data = {method : "beers", "order": "availableId", "sort" :"DESC", "p":p};
+		} else if (page=="atoz"){
+			data = {method : "beers", "order": "name", "sort" :"ASC", "p":p};
+		} else if (page=="popular"){
+			// These are the most recently updated... So they must be popular, right?
+			var ts = Math.round((new Date()).getTime() / 1000) - (86400*4);
+			data = {method : "beers", "since": ts, "sort" :"ASC", "p":p};
+		} else if (page=="seasonal"){
+			// grab those spring beers, dog
+			data = {method : "beers", "availableId": 5, "order" : "abv", "sort" :"DESC", "p":p};
+		} else if (page=="cellar"){
+			var ids = "";
+			$(data.drinks).each(function(i,el){
+				ids += el.api_id + ",";
+			})
+			data = {method : "beers", "ids": ids, "sort" :"ASC", "p":p};
+		} else if (page=="purchases"){
+			data = {method : "beers", "ids": "Qx1hbt,R0MvCF,iLlMCb,FYS1Qj,y3lFdg,CfJ0cK,AXqmST,NoNhan,f9WbNU,x6bRxw,", "sort" :"ASC", "p":p};
+		} else if (page=="search"){
+			data = {method : "search", "q": query, "p":p};
 		}
-		var source = $("#beer-list").html();
-		var tpl = Handlebars.compile(source);
-		h += tpl(ctx);
-		var fragment = document.createDocumentFragment();
-		var d = document.createElement("div");
-		d.innerHTML=h;
-		if ($(d).find("li").length < 60 && data.currentPage < data.numberOfPages){
-			$("#beerlist").append(h);
-			$(".loading-text").remove();
-			return getBeerList(h,p+1,page,query);
-		} else {
-			$("#beerlist").append(h);
-		}
-	});
+
+		theRequest = $.getJSON(BASE, data, function(data){
+			var ctx = {
+				beers : data.data
+			}
+			var source = $("#beer-list").html();
+			var tpl = Handlebars.compile(source);
+			h += tpl(ctx);
+			var fragment = document.createDocumentFragment();
+			var d = document.createElement("div");
+			d.innerHTML=h;
+			if ($(d).find("li").length < 60 && data.currentPage < data.numberOfPages){
+				$("#beerlist").append(h);
+				$(".loading-text").remove();
+				return getBeerList(h,p+1,page,query);
+			} else {
+				$("#beerlist").append(h);
+			}
+		});
+	})
 }
 getBeerList(listhtml, 1, "recommended");
 
 
 $("nav").on("click", "a", function(e){
-	e.preventDefault();
+	if (!$(this).is(".logout")){
+		e.preventDefault();
+	} else { return true; }
 	if (theRequest){
 		theRequest.abort();
 	}
@@ -211,3 +218,15 @@ $("body").on("submit", "#add-a-review", function(e){
                         +"<hr>";
     $(".reviews").append(comment);
 });
+
+$("body").on("click", ".add-beer", function(e){
+	var id = $(this).data("api_id");
+	var button = $(this);
+	$.post("/cellar/add", {"api_id" : id}, function(data){
+		var json = $.parseJSON(data);
+		console.log(json);
+		if (json.message == "Successfully added drink."){
+			button.html("<i class='icon-beer icon'></i> Added to cellar!").removeClass("add-beer");
+		}
+	});
+})
