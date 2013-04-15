@@ -314,7 +314,7 @@ function goToSingle(ev){
 	});
 }
 
-$("body").on(clickevt, ".single-link", goToSingle);
+$("body").on("click", ".single-link", goToSingle);
 $(document).ready(function(){
 	if (document.location.hash.split("/")[1] == "beer"){
 		goToSingle();
