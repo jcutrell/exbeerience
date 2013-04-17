@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>wbBoiler - a Whiteboard Starting Point</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+		
+        <!--
+            customize this based on the types found at https://developers.facebook.com/docs/concepts/opengraph/objects/
+        -->
+        <meta name="og:title" content="">
+        <meta name="og:description" content="">
+        <meta property="og:image" content="">
+        <meta property="og:type" content="website">
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:url" content="">
+        <!-- <meta name="twitter:site" content="@whiteboardis"> -->
+        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+        <!--
+            Uncomment for Font-Awesome-More, as well as the corporate and social extensions
+            -->
+        <link rel="stylesheet" href="http://css.cdn.tl/normalize.css">
+
+        <link href="http://whiteboard.is/fontawesome/css/font-awesome.min.css" rel="stylesheet">
+        <link href="http://whiteboard.is/fontawesome/css/font-awesome-corp.css" rel="stylesheet">
+        <link href="http://whiteboard.is/fontawesome/css/font-awesome-social.css" rel="stylesheet">
+
+        <link href='http://fonts.googleapis.com/css?family=Titillium+Web:400,200,700' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="../docs/assets/css/bootstrap.css">
+        <link rel="stylesheet" href="../docs/assets/css/bootstrap-responsive.css">
+        <link rel="stylesheet" href="../docs/assets/css/slider.css">
+        <!-- <link rel="stylesheet" href="css/style.min.css"> -->
+        <!-- <script src="js/vendor/modernizr-2.6.2.min.js"></script> -->
+		
+		<style>
+			body{
+			background: #aa0d0d; /* Old browsers */
+			/* IE9 SVG, needs conditional override of 'filter' to 'none' */
+			background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIxMDAlIiB5Mj0iMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2FhMGQwZCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNiMjM3MzciIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+			background: -moz-linear-gradient(left,  #aa0d0d 0%, #b23737 100%); /* FF3.6+ */
+			background: -webkit-gradient(linear, left top, right top, color-stop(0%,#aa0d0d), color-stop(100%,#b23737)); /* Chrome,Safari4+ */
+			background: -webkit-linear-gradient(left,  #aa0d0d 0%,#b23737 100%); /* Chrome10+,Safari5.1+ */
+			background: -o-linear-gradient(left,  #aa0d0d 0%,#b23737 100%); /* Opera 11.10+ */
+			background: -ms-linear-gradient(left,  #aa0d0d 0%,#b23737 100%); /* IE10+ */
+			background: linear-gradient(to right,  #aa0d0d 0%,#b23737 100%); /* W3C */
+			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#aa0d0d', endColorstr='#b23737',GradientType=1 ); /* IE6-8 */
+			
+			}
+
+			#tablet{
+				width:768px;
+				height: 1024px;
+				text-align:center;
+			}
+			.modal{
+				height:650px;
+				position:fixed;
+				top:150px;
+			}
+			.modal-header {
+				color: #aa0d0d;
+				padding-top:20px;
+			}
+			.modal-body{
+				margin-top:100px;
+			}
+			.selection-buttons a{
+				margin: 10px;
+				padding: 8px 8px; 
+				width: 90px;
+				font-size: 18px;
+				text-shadow: none;
+			}
+			.drink-option{
+				margin-top:20px;
+				display:block;
+			}
+			.table-condensed th, .table-condensed td {
+				text-align:center;
+				border-top: 0;
+			}
+			#firstModal{
+				left: 385px;
+			}			
+			#secondModal{
+				left: 1200px;
+			}
+			#thirdModal{
+				left: 1200px;
+			}
+			.meal-table td{
+				text-align:center;
+			}
+			#beer-color .slider-track {
+			background: #edb863; /* Old browsers */
+			/* IE9 SVG, needs conditional override of 'filter' to 'none' */
+			background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIxMDAlIiB5Mj0iMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2VkYjg2MyIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiM3YzQ2MTMiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+			background: -moz-linear-gradient(left,  #edb863 0%, #7c4613 100%); /* FF3.6+ */
+			background: -webkit-gradient(linear, left top, right top, color-stop(0%,#edb863), color-stop(100%,#7c4613)); /* Chrome,Safari4+ */
+			background: -webkit-linear-gradient(left,  #edb863 0%,#7c4613 100%); /* Chrome10+,Safari5.1+ */
+			background: -o-linear-gradient(left,  #edb863 0%,#7c4613 100%); /* Opera 11.10+ */
+			background: -ms-linear-gradient(left,  #edb863 0%,#7c4613 100%); /* IE10+ */
+			background: linear-gradient(to right,  #edb863 0%,#7c4613 100%); /* W3C */
+			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#edb863', endColorstr='#7c4613',GradientType=1 ); /* IE6-8 */
+			}
+			#beer-color .slider-selection{
+				background:none;
+			} 
+			.slider-handle{
+				background-color:#aa0d0d;
+				background-image:#aa0d0d;
+			}
+			#thirdModal h4{
+				color: #999999;
+			}
+			#thirdModal div{
+				margin-bottom: 15px;
+			}
+			#thirdModal span{
+				margin: 0 5px;
+				vertical-align: super;
+			}
+			.build-message{
+				display:none;
+				color: #aa0d0d;
+				margin-top: 10px;
+			}
+			.accordion-heading{
+				border-color:#aa0d0d;
+			}
+			.accordion-group {
+				border: 1px solid #AA0D0D;
+			}
+			.accordion-group a{
+				color: #AA0D0D;
+				font-weight: bold;
+				font-size: 16px;
+			}
+		</style>
+    </head>
+    <body>
+        <div id="tablet">
+            <!--[if lt IE 7]>
+                <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+            <![endif]-->
+
+            <!-- Add your site or application content here -->
+    <!-- Modal -->
+    <div id="firstModal" class="modal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-header">
+			<h3>What are you in the mood for today?</h3>
+		</div>
+		<div class="modal-body">
+			    <table class="table table-condensed">
+					<tr>
+						<td>
+							<img src="../img/beer-mood.png"/>			
+							<a class="btn drink-option btn-large btn-danger" id="beer-option">Beer</a>						
+						</td>
+						<td>
+							<img src="../img/wine-mood.png"/>
+							<a href="newUserWizard.html" class="btn drink-option btn-large btn-danger">Wine</a>						
+						</td>
+					</tr>				
+				</table>
+		</div>
+		</div>
+		<div id="secondModal" class="modal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-header">
+			<h3>What's the occasion?</h3>
+		</div>
+		<div class="modal-body">
+			<div id="accordion2" class="accordion">
+                <div class="accordion-group">
+                  <div class="accordion-heading">
+                    <a href="#collapseTwo" data-parent="#accordion2" data-toggle="collapse" class="accordion-toggle collapsed">
+                      Dinner/Meal
+                    </a>
+                  </div>
+                  <div class="accordion-body collapse" id="collapseTwo" style="height: 0px;">
+                    <div class="accordion-inner">
+						<table class="table table-bordered meal-table">
+							<tr>
+								<td><a class="occSelection" style="display:block;">Red Meat</a></td>
+								<td><a class="occSelection" style="display:block;">Seafood</a></td>
+								<td><a class="occSelection" style="display:block;">Chicken</a></td>
+								<td><a class="occSelection" style="display:block;">Vegetarian</a></td>
+							</tr>
+						</table>
+                    </div>
+                  </div>
+                </div>
+                <div class="accordion-group">
+                  <div class="accordion-heading">
+                    <a href="#collapseThree" data-parent="#accordion2" data-toggle="collapse" class="accordion-toggle occSelection">
+						Party
+                    </a>
+                  </div>
+                </div>
+                <div class="accordion-group">
+                  <div class="accordion-heading">
+                    <a href="#collapseThree" data-parent="#accordion2" data-toggle="collapse" class="accordion-toggle occSelection">
+						Sports Event
+                    </a>
+                  </div>
+                </div>
+                <div class="accordion-group">
+                  <div class="accordion-heading">
+                    <a href="#collapseThree" data-parent="#accordion2" data-toggle="collapse" class="accordion-toggle occSelection">
+						Chilling with friends
+                    </a>
+                  </div>
+                </div>
+                <div class="accordion-group">
+                  <div class="accordion-heading">
+                    <a href="#collapseThree" data-parent="#accordion2" data-toggle="collapse" class="accordion-toggle occSelection">
+						Exploration
+                    </a>
+                  </div>
+                </div>
+              </div>
+		</div>
+		</div>
+		<div id="thirdModal" class="modal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-header">
+			<h3>How do you like your beer?</h3>
+		</div>
+		<div class="modal-body">
+			<div id="beer-color">
+				<h4>Color</h4>
+				<input type="text" class="span4 slider"  value="" data-slider-min="-20" data-slider-max="20" data-slider-step="1" data-slider-value="-14" data-slider-orientation="horizontal" data-slider-selection="after" data-slider-tooltip="hide"></input>
+			</div>
+			<div id="beer-strength">
+				<h4>Strength</h4>
+				<span style="display:inline;">Light</span>
+				<input type="text" class="span4 slider"  value="" data-slider-min="-20" data-slider-max="20" data-slider-step="1" data-slider-value="-14" data-slider-orientation="horizontal" data-slider-selection="after" data-slider-tooltip="hide"></input>
+				<span style="display:inline;">Strong</span>
+			</div>
+			<div id="beer-bitterness">
+				<h4>Bitterness</h4>
+				<span style="display:inline;">Low</span>
+			<input type="text" class="span4 slider"  value="" data-slider-min="-20" data-slider-max="20" data-slider-step="1" data-slider-value="-14" data-slider-orientation="horizontal" data-slider-selection="after" data-slider-tooltip="hide"></input>
+				<span style="display:inline;">High</span>
+			</div>
+			<div style="margin-top:30px">
+				<a id="show-rec" class="btn btn-large btn-danger" style="margin: 0 auto;">Show Recommendations</a>			
+			</div>
+			<h3 class="build-message">Analyzing your taste preferences</h3>
+			<img class="loading-bar"style="display:none;" src="../img/loading_bar.gif"/>
+		</div>
+		</div>
+    </div>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+        <script src="../js/bootstrap-collapse.js"></script>
+        <script src="../js/bootstrap-slider.js"></script>
+       
+        <!-- <script src="js/plugins.js"></script> -->
+        <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.0.0-rc.3/handlebars.min.js"></script>
+        <!--<script src="js/app.js"></script>-->
+		
+		<script>
+			$("#beer-option").on("click", function(event){
+				$("#firstModal").animate({"left":"-430px"}, "slow");
+				$("#secondModal").animate({"left":"385px"}, "slow");
+			});
+			$(".occSelection").on("click", function(event){
+				$("#secondModal").animate({"left":"-430px"}, "slow");
+				$("#thirdModal").animate({"left":"385px"}, "slow");
+			});
+			$("#show-rec").on("click", function(event){
+				$(".loading-bar").show();
+				$(".build-message").show()
+				setTimeout(function() {
+					$(".build-message").html("Building your taste profile")
+				}, 2000);
+				window.setTimeout(function() {
+					window.location.href = 'index.html';
+				}, 4000);
+				
+			});
+			$('.slider').slider();
+			
+		</script>
+        <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+        <script>
+            var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+    </body>
+</html>
